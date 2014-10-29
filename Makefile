@@ -1,6 +1,5 @@
 all : hello
 
-hello : hello.o
+clean : ; $(RM) -f hello.o hello
 
-hellold : hellold.o
-	$(LD) -o $@ $<
+hello : hello.o
