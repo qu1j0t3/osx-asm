@@ -5,7 +5,7 @@
 ### Register use
 
 * parameters are passed in GPR3-10, FPR1-13, V2-13
-** UNLESS return type is composite (non-scalar), in which case GPR3 is a pointer to space for the returned value, and parameters start at GPR4
+  * UNLESS return type is composite (non-scalar), in which case GPR3 is a pointer to space for the returned value, and parameters start at GPR4
 * additional parameters are passed in stack frame
 * callee can choose to use the linkage area to preserve LR, CR, SP
 * return value is placed in GPR3 if scalar
@@ -32,26 +32,27 @@ Not preserved: LR, CTR, XER
 ```
 
 ### Stack frame
+
 * Leaf functions (those that make no calls) can use the 224 byte "red zone" under SP for local variables, and to preserve registers
 * If they need more than that, they need a stack frame
 * Ordinary functions must setup a stack frame for callees
 
-#### Layout:
+#### Layout
 
 * OUR Saved regs
 * OUR Local vars
 * Parameter area
-**  ... extra parameters ... large enough for all calls made from this function
-**  52(SP) 8th parameter (GPR10)
-**  48(SP) 7th parameter (GPR9)
-**  44(SP) 6th parameter (GPR8)
-**  40(SP) 5th parameter (GPR7)
-**  36(SP) 4th parameter (GPR6)
-**  32(SP) 3rd parameter (GPR5)
-**  28(SP) 2nd parameter (GPR4)
-**  24(SP) 1st parameter (GPR3)
+  *  ... extra parameters ... large enough for all calls made from this function
+  *  52(SP) 8th parameter (GPR10)
+  *  48(SP) 7th parameter (GPR9)
+  *  44(SP) 6th parameter (GPR8)
+  *  40(SP) 5th parameter (GPR7)
+  *  36(SP) 4th parameter (GPR6)
+  *  32(SP) 3rd parameter (GPR5)
+  *  28(SP) 2nd parameter (GPR4)
+  *  24(SP) 1st parameter (GPR3)
 * Linkage area:
-**  ... reserved ...
-**  8(SP)  Space for us to save LR
-**  4(SP)  Space for us to save CR
-**  0(SP)  Space for us to save SP <-- SP after stack frame setup, before call
+  *  ... reserved ...
+  *  8(SP)  Space for us to save LR
+  *  4(SP)  Space for us to save CR
+  *  0(SP)  Space for us to save SP <-- SP after stack frame setup, before call
