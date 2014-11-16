@@ -12,14 +12,12 @@
 * long long values are returned in GPR3/GPR4
 * floating point values are returned in FPR1
 
-```
-X = preserve. If function wants to use this register, store in stack frame (or red zone if leaf),
-    and restore on exit. (Because the highest numbered registers are preserved, the
-    lmw and stmw instructions can be used to store multiple consecutive registers.
-    This also implies that registers should be allocated highest first.)
-P = parameter. Not preserved. Use freely.
-- = scratch. Use freely.
+* X = preserve. If function wants to use this register, store in stack frame (or red zone if leaf), and restore on exit. (Because the highest numbered registers are preserved, the lmw and stmw instructions can be used to store multiple consecutive registers.  This also implies that registers should be allocated highest first.)
+* P = parameter. Not preserved. Use freely.
+* - = scratch. Use freely.
+* Not preserved: LR, CTR, XER
 
+```
 GPR  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
      -  X  - P*  P  P  P  P  P  P  P X*  -  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X
 FPR  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
@@ -28,7 +26,6 @@ V    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 2
      -  -  P  P  P  P  P  P  P  P  P  P  P  P  -  -  -  -  -  -  X  X  X  X  X  X  X  X  X  X  X  X
 CR   0  1  2  3  4  5  6  7
      -  -  X  X  X  -  -  -
-Not preserved: LR, CTR, XER
 ```
 
 ### Stack frame
