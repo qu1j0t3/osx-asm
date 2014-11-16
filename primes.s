@@ -34,7 +34,7 @@ _main:
 ; r28: pointer to PRIMES[J-1]
 ; r27: pointer to PRIMES[K-1]
 ;      local stack must be allocated above callee stack frame
-	stwu r1,-nprimes*2(r1)
+	addi r1,r1,-nprimes*2
 	mr r29,r1
 	mr r28,r1
 ; ----------------------------
@@ -78,7 +78,7 @@ p9:
 	ori r3,r3,lo16(title)
 	bl _puts 
 
-; Set up nested loops. Note that we use the preserved registers
+; Set up nested loops. Must use preserved registers
 ; because we make subroutine calls.
 	li r31,1 ; row counter
 row:
@@ -113,7 +113,7 @@ col:
 	li r3,0
 
 ; epilog----------------------------
-	addi r1,r1,64+2*nprimes ; remove stack frame
+	addi r1,r1,64+2*nprimes ; pop stack frame
 	lwz r0,8(r1)
 	mtlr r0 ; restore LR (return address) 
 	blr
